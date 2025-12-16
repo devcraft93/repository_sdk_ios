@@ -2,13 +2,13 @@
 import Foundation
 import MapKit
 
-protocol LocationManagerDelegate: AnyObject {
+public protocol LocationManagerDelegate: AnyObject {
     func didUpdateLocation(_ location: CLLocation?)
     func locationManager(_ manager: CLLocationManager, didChangeAuthorization status: CLAuthorizationStatus)
 }
 
 public class LocationManager: NSObject {
-    weak var delegate: LocationManagerDelegate?
+    public weak var delegate: LocationManagerDelegate?
     private var locManager = CLLocationManager()
     
     public static let shared = LocationManager()

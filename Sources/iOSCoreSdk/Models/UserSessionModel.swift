@@ -10,12 +10,12 @@ import SwiftyJSON
 
 public class UserSessionModel: BaseModel {
     
-    var accessToken: String?
-    var refreshToken: String?
-    var userId: String?
-    var tokenType: String?
+    public var accessToken: String?
+    public var refreshToken: String?
+    public var userId: String?
+    public var tokenType: String?
 
-    var expiresIn: Double? {
+    public var expiresIn: Double? {
         if let _accessToken = accessToken , !isEmpty(_accessToken){
             let dataDecode = CommonUtils.decode(jwtToken:  _accessToken)
             let iat = (dataDecode["iat"] as? Double) ?? 0
@@ -25,7 +25,7 @@ public class UserSessionModel: BaseModel {
         return nil
     }
     
-    var tokenDate: Double? {
+    public var tokenDate: Double? {
         if let _accessToken = accessToken, !isEmpty(_accessToken) {
             let dataDecode = CommonUtils.decode(jwtToken:  _accessToken)
             return dataDecode["exp"] as? Double
@@ -33,7 +33,7 @@ public class UserSessionModel: BaseModel {
         return nil
     }
     
-    var hasValidToken: Bool {
+    public var hasValidToken: Bool {
         if let tokenExpiredDate = tokenDate {
             return tokenExpiredDate - Date().timeIntervalSince1970 > 0
         }
@@ -51,6 +51,9 @@ public class UserSessionModel: BaseModel {
     public required init(json: JSON) {
         super.init()
         accessToken = json["accessToken"].string
+        refreshToken = json["refreshToken"].string
+        userId = json["userId"].string
+        tokenType = json["tokenType"].string
     }
     
     func toDictionary() -> [String: Any] {
